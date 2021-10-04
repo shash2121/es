@@ -1,0 +1,20 @@
+---
+- name: Setting up elasticsearch
+  include_tasks: es-{{ ansible_os_family }}.yml
+  when: "'tag_app_es' in group_names"  
+    
+- include_tasks: config.yml
+  when: "'tag_app_es' in group_names"
+
+- name: Editing elasticsearch config file in master
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    line: "node.master: true"
+  when: "'tag_type_master' in group_names"  
+
+- name: Editing elasticsearch config file in data node
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    line: "node.master: false"    
+  when: "'tag_type_data' in group_names"
+

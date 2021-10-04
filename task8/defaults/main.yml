@@ -1,0 +1,5 @@
+---
+# defaults file for task8
+es_IP: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+data_path: /var/lib/elasticsearch
+log_path: /var/log/elasticsearch

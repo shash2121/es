@@ -1,0 +1,7 @@
+---
+- name: Create elasticsearch configuration files.
+  template: 
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+  notify:
+    - restart elasticsearch  

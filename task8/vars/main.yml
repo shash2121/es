@@ -1,0 +1,6 @@
+---
+# vars file for task8
+es_ver: "7.14.1"
+es_series: "7"
+cluster_name: "My-ES-Cluster"
+http_port: 9200

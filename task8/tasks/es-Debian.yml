@@ -1,0 +1,31 @@
+---
+- name: Elasticsearch public signing key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: apt-transports package    
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: Saving the repository definition
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/{{ es_series }}.x/apt stable main
+    state: present
+    filename: elastic-7.x.list
+    
+- name: Download ElasticSearch
+  get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ es_ver }}-amd64.deb
+    dest: /tmp/elasticsearch-{{ es_ver }}-amd64.deb
+
+- name: Install ElasticSearch
+  apt:
+    deb: /tmp/elasticsearch-{{ es_ver }}-amd64.deb
+
+- name: Enable ElasticSearch
+  systemd:
+    name: elasticsearch
+    enabled: yes          
+      

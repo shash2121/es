@@ -1,0 +1,7 @@
+---
+- name: ES Cluster Setup
+  hosts: tag_app_es
+  gather_facts: yes
+  become: yes
+  roles:
+    - task8
